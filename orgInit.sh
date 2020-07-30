@@ -4,18 +4,19 @@ sfdx force:org:create -f config/project-scratch-def.json -s -d 7 -w 60 -a scratc
 
 #Setup some extra users
 #Doing this prior to installing package so that this user can also have access to that package
-sfdx force:apex:execute -f config/setup.apex
+sfdx force:apex:execute -f config/setupUsers.apex
 
 #Sample: https://github.com/skipsauls/eadx
 #Install package
 sfdx force:package:install  -s AllUsers -p 04t5w000005ubuw
 
 
+#Create dashboard from template
+sfdx force:apex:execute -f config/setup.apex
+
 # push the contents of this repo into the scratch org
 sfdx force:source:push
 
-#Create dashboard from template
-sfdx force:apex:execute -f config/setup.apex
 
 #open the org
 sfdx force:org:open
