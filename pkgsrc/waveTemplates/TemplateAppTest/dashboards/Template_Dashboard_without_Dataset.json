@@ -72,7 +72,7 @@
       "text_1" : {
         "parameters" : {
           "content" : {
-            "displayTemplate" : "Sales Performance v1.4"
+            "displayTemplate" : "Sales Performance v1.5"
           },
           "fontSize" : 16,
           "showActionMenu" : true,
