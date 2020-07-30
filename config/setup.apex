@@ -20,6 +20,7 @@ newRequest.put('RequestType', 'WaveAppCreate');
 newRequest.put('Configuration', JSON.serialize(configuration));
 
 insert newRequest;
+System.debug(newRequest);
 
 //Reset the default admin user password because Scratch orgs don't supply password to be able to login directly
 User u = [select id,name, LastName, FirstName, username, ProfileId,  alias, email, TimeZoneSidKey, LanguageLocaleKey, EmailEncodingKey, LocaleSidKey

@@ -9,6 +9,7 @@ String uniqueName = orgId + dateString + randomInt;
 //Doing it through apex because it must be unique
 User u = new user();
 u.LastName = 'User';
+u.FirstName = 'Standard';
 u.Email = uniqueName + '@test' + orgId + '.org';
 u.Alias = 'Tstan';
 u.Username = uniqueName + '@test' + orgId + '.org';

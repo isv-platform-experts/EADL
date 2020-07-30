@@ -1,6 +1,8 @@
 # create scratch org
 sfdx force:org:create -f config/project-scratch-def.json -s -d 7 -w 60 -a scratchEATest
 
+#Assign Analytics view only permset to user
+sfdx force:user:permset:assign -n AnalyticsViewOnlyUser
 
 #Setup some extra users
 #Doing this prior to installing package so that this user can also have access to that package
@@ -8,7 +10,7 @@ sfdx force:apex:execute -f config/setupUsers.apex
 
 #Sample: https://github.com/skipsauls/eadx
 #Install package
-sfdx force:package:install  -s AllUsers -p 04t5w000005ubuw
+sfdx force:package:install  -s AllUsers -p 04t5w000005ubuw -w 20
 
 
 #Create dashboard from template

@@ -1,7 +1,7 @@
 {
   "orgName": "sangitagupta company",
   "edition": "Developer",
-  "features": ["AnalyticsAppEmbedded","DevelopmentWave"],
+  "features": ["AnalyticsAppEmbedded"],
   "settings": {
     "lightningExperienceSettings": {
         "enableS1DesktopEnabled": true
