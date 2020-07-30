@@ -29,7 +29,7 @@ sfdx force:package:install  -s AllUsers -p 04t5w000005ubuh
 # create an app using the auto installer
 #Create dashboard from namespaced app template
 #sfdx force:data:record:create -s WaveAutoInstallRequest -v "RequestStatus='Enqueued' RequestType='WaveAppCreate' TemplateApiName='eadxtest__TemplateAppTest'"
-#sfdx force:data:record:create -s WaveAutoInstallRequest -v 'RequestStatus="Enqueued" RequestType="WaveAppCreate" TemplateApiName="eadxtest__TemplateAppTest" Configuration=\'{"appConfiguration":{"deleteAppOnConstructionFailure":true,"autoShareWithLicensedUsers":true,"autoShareWithOriginator":true}\''
+#sfdx force:data:record:create -s WaveAutoInstallRequest -v 'RequestStatus="Enqueued" RequestType="WaveAppCreate" TemplateApiName="eadxtest__TemplateAppTest" Configuration="{"appConfiguration":{deleteAppOnConstructionFailure:true,autoShareWithLicensedUsers:true,autoShareWithOriginator:true}}"'
 
 #Create dashboard from template
 sfdx force:apex:execute -f config/setup.apex
