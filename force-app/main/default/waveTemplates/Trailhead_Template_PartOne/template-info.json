@@ -1,0 +1,75 @@
+{
+  "assetVersion" : 41,
+  "name" : "Trailhead_Template_PartOne",
+  "releaseInfo" : {
+    "templateVersion" : "4.0"
+  },
+  "dashboards" : [
+    {
+      "file" : "dashboard/Exec_Overview_Pipeline_Performance.json",
+      "name" : "Exec_Overview_Pipeline_Performance_PartOne",
+      "label" : "Exec Overview - Pipeline Performance"
+    },
+    {
+      "file" : "dashboard/Exec_Overview_Sales_Performance.json",
+      "name" : "Exec_Overview_Sales_Performance_PartOne",
+      "label" : "Exec Overview - Sales Performance"
+    }
+  ],
+  "description" : "Unlock the power of Einstein Analytics Templates.",
+  "eltDataflows" : [
+    {
+      "file" : "workflow/SalesAnalyticsDataflow.json"
+    }
+  ],
+  "datasetFiles" : [
+    {
+      "label" : "Users",
+      "name" : "user_PartOne"
+    },
+    {
+      "label" : "Opportunities",
+      "name" : "opportunity_PartOne",
+      "userXmd" : "external_files/opportunity_XMD_template.json"
+    },
+    {
+      "label" : "User Allocation",
+      "name" : "quota_PartOne",
+      "userXmd" : "external_files/quota_XMD_template.json"
+    },
+    {
+      "label" : "Pipeline Trending",
+      "name" : "pipeline_trending_PartOne",
+      "userXmd" : "external_files/pipeline_trending_XMD_template.json"
+    }
+  ],
+  "externalFiles" : [
+    {
+      "file" : "external_files/plain_quota.csv",
+      "name" : "plain_quota_PartOne",
+      "schema" : "external_files/plain_quota.json",
+      "type" : "CSV"
+    }
+  ],
+  "label" : "Execs Only Template 1",
+  "folderDefinition" : "folder.json",
+  "rules" : [
+    {
+      "type" : "templateToApp",
+      "file" : "template-to-app-rules.json"
+    }
+  ],
+  "uiDefinition" : "ui.json",
+  "variableDefinition" : "variables.json",
+  "icons" : {
+    "appBadge" : {
+      "name" : "16.png"
+    },
+    "templateBadge" : {
+      "name" : "trailhead_icon_160x160_p1"
+    },
+    "templateDetail" : {
+      "name" : "trailhead_detail_p1"
+    }
+  }
+}

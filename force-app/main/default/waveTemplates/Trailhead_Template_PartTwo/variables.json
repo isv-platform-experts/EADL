@@ -1,0 +1,95 @@
+{
+  "Geography": {
+	"label": "What field do you want to use to segment customers by geography?",
+	"description": "Choose how Execs Only filters geographic data.",
+	"defaultValue": {
+		"sobjectName": "Account",
+		"fieldName": "BillingCountry"
+	},
+	"required": true,
+	"excludeSelected": true,
+	"excludes": [
+		"Name",
+		"Industry"
+	],
+	"variableType": {
+		"type": "SobjectFieldType",
+		"dataType": "xsd:string"
+	}
+  },
+  "SObjectChoices": {
+    "label": "Choose additional objects to include in your app. Selecting Cases will add the Service Performance dashboard and a Cases dataset",
+    "description": "You can analyze data and build out additional dashboards using data from the additional object.",
+    "defaultValue": [],
+    "required": false,
+    "variableType": {
+      "type": "ArrayType",
+      "itemsType": {
+        "enums": [
+	      "Cases"
+        ],
+        "type": "StringType"  
+      }
+    }
+  },
+  "Source_L2": {
+    "label": "What field do you want to use to segment sources for new business?",
+    "description": "Choose how Execs Only filters data about new business sources.",
+    "defaultValue": {
+      "sobjectName": "Opportunity",
+      "fieldName": "LeadSource"
+    },
+    "required": true,
+    "excludeSelected": true,
+    "excludes": [
+      "Name",
+      "StageName",
+      "ForecastCategory",
+      "ForecastCategoryName"
+    ],
+    "variableType": {
+      "type": "SobjectFieldType",
+      "dataType": "xsd:string"
+    }
+  },
+  "Overrides": {
+    "required": true,
+    "description": "Internal configuration to allow asset creation overrides, not to be displayed in UI.",
+    "defaultValue": {
+      "createAllDashboards": false
+    },
+    "variableType": {
+      "type": "ObjectType",
+      "properties": {
+        "createAllDashboards": {
+          "type": "BooleanType"
+        }
+      },
+      "strictValidation": true
+    }
+  },
+  "Exec_Overview_Sales_Performance_backgroundColor": {
+    "label": "Click the color-picker and choose the background color for the Sales Performance Dashboard",
+    "description": "",
+    "defaultValue": "#C5D3E0",
+    "variableType": {
+      "type": "StringType"
+    }
+  },
+  "Exec_Overview_Pipeline_Performance_backgroundColor": {
+	"label": "Click the color-picker and choose the background color for the Pipeline Performance Dashboard",
+	"description": "",
+    "defaultValue": "#C5D3E0",
+    "variableType": {
+      "type": "StringType"
+    }
+  },
+  "Exec_Overview_Service_Performance_backgroundColor": {
+	"label": "Click the color-picker and choose the background color for the Service Performance Dashboard",
+	"description": "",
+	"defaultValue": "#C5D3E0",
+	"variableType": {
+		"type": "StringType"
+	}
+  }
+}

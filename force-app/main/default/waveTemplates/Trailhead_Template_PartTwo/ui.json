@@ -1,0 +1,30 @@
+{
+  "pages": [
+    {
+      "title": "Create Execs Only App",
+      "variables": [
+        { "name": "Geography" },
+        { "name": "Source_L2" },
+        { "name": "SObjectChoices" }
+      ]
+    },
+	{
+	  "title": "Execs Only Dashboard Styling",
+	  "variables": [
+	    {
+	      "name": "Exec_Overview_Sales_Performance_backgroundColor"
+	    },
+	    {
+	      "name": "Exec_Overview_Pipeline_Performance_backgroundColor"
+        },
+		{
+		  "name": "Exec_Overview_Service_Performance_backgroundColor"
+		}
+      ],
+      "vfPage":{
+        "namespace": "c",
+        "name": "colorTest"
+      }
+	}
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "dataset": {},
+  "dates": [],
+  "derivedDimensions": [
+  ],
+  "derivedMeasures": [
+    {
+      "field": "last_activity",
+      "format": {},
+      "label": "last_activity",
+      "showInExplorer": false
+    },
+    {
+      "field": "percent",
+      "format": {
+        "customFormat": "[\"#,###%\",100]"
+      },
+      "label": "Percent",
+      "showInExplorer": false
+    },
+    {
+      "field": "Days_Open",
+      "format": {
+        "customFormat": "[\"#,###\",1]"
+      },
+      "label": "Days_Open",
+      "showInExplorer": false
+    }
+  ],
+  "dimensions": [
+    {
+      "customActions": [],
+      "field": "IsClosed",
+      "label": "Closed",
+      "members": [
+        {
+          "label": "Open",
+          "member": "false"
+        },
+        {
+          "label": "Closed",
+          "member": "true"
+        }
+      ],
+      "recordDisplayFields": [],
+      "salesforceActions": []
+    },
+    {
+      "customActions": [],
+      "field": "Subject",
+      "label": "Case Subject",
+      "linkTemplate": "/{{row.Id}}",
+      "linkTooltip": "Open Case",
+      "members": [],
+      "recordDisplayFields": [],
+      "recordIdField": "Id",
+      "salesforceActions": []
+    }
+  ],
+  "measures": [
+    {
+      "field": "Account.AnnualRevenue",
+      "format": {
+        "customFormat": "[\"\",1]",
+        "decimalDigits": 0
+      },
+      "label": "Account Annual Revenue"
+    },
+    {
+      "field": "Account.NumberOfEmployees",
+      "format": {
+        "customFormat": "[\"\",1]",
+        "decimalDigits": 0
+      },
+      "label": "Account Employee Size"
+    },
+    {
+      "field": "DurationCalculatedField",
+      "format": {
+        "customFormat": "[\"### days\",1]",
+        "decimalDigits": 0
+      },
+      "label": "Case Duration"
+    }
+  ],
+  "organizations": [],
+  "showDetailsDefaultFields": [
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "name" : "Sales_Performance_tp",
+  "label" : "Sales Performance",
+  "folder" : {
+    "id" : "${App.Folder.Id}"
+  },
+  "dateVersion" : 1,
+  "mobileDisabled" : false,
+  "xmd" : {
+    "measures" : [ ],
+    "derivedDimensions" : [ ],
+    "organizations" : [ ],
+    "showDetailsDefaultFields" : [ ],
+    "dates" : [ ],
+    "derivedMeasures" : [ ],
+    "dimensions" : [ ]
+  },
+  "state" : {
+    "dataSourceLinks" : [ ],
+    "filters" : [ ],
+    "gridLayouts" : [
+      {
+        "name" : "Default",
+        "numColumns" : 12,
+        "pages" : [
+          {
+            "label" : "Untitled",
+            "name" : "5bba2929-51ba-46b8-8df1-5ef8d2fa3d1c",
+            "navigationHidden" : false,
+            "widgets" : [
+              {
+                "colspan" : 12,
+                "column" : 0,
+                "name" : "text_1",
+                "row" : 0,
+                "rowspan" : 1,
+                "widgetStyle" : {
+                  "borderEdges" : [ ]
+                }
+              },
+              {
+                "colspan" : 3,
+                "column" : 9,
+                "name" : "container_1",
+                "row" : 1,
+                "rowspan" : 6,
+                "widgetStyle" : {
+                  "borderEdges" : [ ]
+                }
+              },
+              {
+                "colspan" : 2,
+                "column" : 9,
+                "name" : "text_2",
+                "row" : 1,
+                "rowspan" : 1,
+                "widgetStyle" : {
+                  "borderEdges" : [ ]
+                }
+              },
+              {
+                "colspan" : 3,
+                "column" : 9,
+                "name" : "number_1",
+                "row" : 2,
+                "rowspan" : 1,
+                "widgetStyle" : {
+                  "borderEdges" : [ ]
+                }
+              },
+              {
+                "colspan" : 3,
+                "column" : 9,
+                "name" : "number_2",
+                "row" : 3,
+                "rowspan" : 1,
+                "widgetStyle" : {
+                  "borderEdges" : [ ]
+                }
+              },
+              {
+                "colspan" : 3,
+                "column" : 9,
+                "name" : "number_3",
+                "row" : 4,
+                "rowspan" : 1,
+                "widgetStyle" : {
+                  "borderEdges" : [ ]
+                }
+              }
+            ]
+          }
+        ],
+        "rowHeight" : "normal",
+        "selectors" : [ ],
+        "style" : {
+          "alignmentX" : "left",
+          "alignmentY" : "top",
+          "backgroundColor" : "#F2F6FA",
+          "cellSpacingX" : 8,
+          "cellSpacingY" : 8,
+          "fit" : "original",
+          "gutterColor" : "#C5D3E0"
+        },
+        "version" : 1.0
+      }
+    ],
+    "layouts" : [ ],
+    "steps" : { },
+    "widgetStyle" : {
+      "backgroundColor" : "#FFFFFF",
+      "borderColor" : "#E6ECF2",
+      "borderEdges" : [ ],
+      "borderRadius" : 0,
+      "borderWidth" : 1
+    },
+    "widgets" : {
+      "number_3" : {
+        "parameters" : { },
+        "type" : "number"
+      },
+      "container_1" : {
+        "parameters" : {
+          "alignmentX" : "left",
+          "alignmentY" : "top",
+          "fit" : "original"
+        },
+        "type" : "container"
+      },
+      "number_2" : {
+        "parameters" : { },
+        "type" : "number"
+      },
+      "number_1" : {
+        "parameters" : { },
+        "type" : "number"
+      },
+      "text_1" : {
+        "parameters" : {
+          "content" : {
+            "displayTemplate" : "Sales Performance"
+          },
+          "fontSize" : 16,
+          "showActionMenu" : true,
+          "textAlignment" : "left",
+          "textColor" : "#091A3E"
+        },
+        "type" : "text"
+      },
+      "text_2" : {
+        "parameters" : {
+          "content" : {
+            "displayTemplate" : "Key Metrics"
+          },
+          "fontSize" : 16,
+          "showActionMenu" : true,
+          "textAlignment" : "left",
+          "textColor" : "#091A3E"
+        },
+        "type" : "text"
+      }
+    }
+  }
+}

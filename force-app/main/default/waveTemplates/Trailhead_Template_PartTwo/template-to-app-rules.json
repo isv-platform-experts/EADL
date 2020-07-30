@@ -1,0 +1,324 @@
+{
+  "constants": [
+    {
+      "name": "HasCases",
+      "value": "${array:contains(Variables.SObjectChoices, 'Cases')}"
+    }
+    
+  ],
+  "rules": [
+    {
+      "name": "ReplaceDashboardVariables",
+      "appliesTo": [
+        {
+          "type": "dashboard",
+          "name": "*"
+        }
+      ],
+      "actions": [
+        {
+          "action": "set",
+          "description": "Replace LeadSource Dimension",
+          "path": "$..*",
+          "value": "${string:replace(Rules.CurrentNode,\"LeadSource\", Variables.Source_L2.fieldName)}"
+        },
+        {
+          "action": "set",
+          "description": "Replace LeadSource Dimension",
+          "path": "$..*",
+          "value": "${string:replace(Rules.CurrentNode,\"Lead Source\", Variables.Source_L2.fieldLabel)}"
+        },
+        {
+          "action": "set",
+          "description": "Replace Geography Dimension",
+          "path": "$..*",
+          "value": "${string:replace(Rules.CurrentNode,\"BillingCountry\", Variables.Geography.fieldName)}"
+        },
+        {
+          "action": "set",
+          "description": "Replace Geography Dimension",
+          "path": "$..*",
+          "value": "${string:replace(Rules.CurrentNode,\"Billing Country\", Variables.Geography.fieldLabel)}"
+        }
+      ]
+    },
+    {
+      "name": "ReplaceWorkflowVariables",
+      "appliesTo": [
+        {
+          "type": "workflow",
+          "name": "*"
+        }
+      ],
+      "actions": [
+        {
+          "action": "set",
+          "description": "Replace LeadSource Dimension",
+          "path": "$..*",
+          "value": "${string:replace(Rules.CurrentNode,\"LeadSource\", Variables.Source_L2.fieldName)}"
+        },
+        {
+          "action": "set",
+          "description": "Replace BillingCountry Dimension",
+          "path": "$..*",
+          "value": "${string:replace(Rules.CurrentNode,\"BillingCountry\", Variables.Geography.fieldName)}"
+        }
+        
+        
+      ]
+    },
+    {
+      "name": "VariationsforExecPipelineOverview",
+      "appliesTo": [
+        {
+          "type": "dashboard",
+          "name": "Exec_Overview_Pipeline_Performance_PartTwo"
+        }
+      ],
+      "actions": [
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for Service Performance title",
+          "path": "$.state.widgets.text_4"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout for Service Performance title",
+          "path": "$.state.gridLayouts..[?(@.name=='text_4')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete step for avg case duration",
+          "path": "$.state.steps.kpi_avg_case_duration"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for avg case duration",
+          "path": "$.state.widgets.number_10"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout for avg case duration",
+          "path": "$.state.gridLayouts..[?(@.name=='number_10')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete step for case compare",
+          "path": "$.state.steps.comparison_case_duration"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for comparison case duration",
+          "path": "$.state.widgets.number_11"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout for comparison case duration",
+          "path": "$.state.gridLayouts..[?(@.name=='number_11')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete step for trend",
+          "path": "$.state.steps.trend_avg_case_duration"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for trend case duration",
+          "path": "$.state.widgets.chart_3"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout for trend case duration",
+          "path": "$.state.gridLayouts..[?(@.name=='chart_3')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for service dashboard link",
+          "path": "$.state.widgets.link_3"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout service dashboard link",
+          "path": "$.state.gridLayouts..[?(@.name=='link_3')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for service container",
+          "path": "$.state.widgets.container_4"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout service container",
+          "path": "$.state.gridLayouts..[?(@.name=='container_4')]"
+        }
+      ]
+    },
+    {
+      "name": "VariationsForExecSalesOverview",
+      "appliesTo": [
+        {
+          "type": "dashboard",
+          "name": "Exec_Overview_Sales_Performance_PartTwo"
+        }
+      ],
+      "actions": [
+                {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for Service Performance title",
+          "path": "$.state.widgets.text_6"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout for Service Performance title",
+          "path": "$.state.gridLayouts..[?(@.name=='text_6')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete step for avg case duration",
+          "path": "$.state.steps.kpi_avg_case_duration"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for avg case duration",
+          "path": "$.state.widgets.number_7"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout for avg case duration",
+          "path": "$.state.gridLayouts..[?(@.name=='number_7')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete step for avg case duration",
+          "path": "$.state.steps.comparison_case_duration"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for comparison case duration",
+          "path": "$.state.widgets.number_10"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout for comparison case duration",
+          "path": "$.state.gridLayouts..[?(@.name=='number_10')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete step for avg case duration",
+          "path": "$.state.steps.trend_avg_case_duration"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for trend case duration",
+          "path": "$.state.widgets.chart_3"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout for trend case duration",
+          "path": "$.state.gridLayouts..[?(@.name=='chart_3')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for service dashboard link",
+          "path": "$.state.widgets.link_3"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout service dashboard link",
+          "path": "$.state.gridLayouts..[?(@.name=='link_3')]"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "Delete widget for service container",
+          "path": "$.state.widgets.container_4"
+        },
+        {
+          "action": "delete",
+          "condition": "${!Constants.HasCases}",
+          "description": "delete layout service container",
+          "path": "$.state.gridLayouts..[?(@.name=='container_4')]"
+        }
+      ]
+    },
+	{
+	  "name": "Exec_Overview_Sales_Performance_backgroundColor",
+	  "appliesTo": [
+	    {
+	      "type": "dashboard",
+	      "name": "Exec_Overview_Sales_Performance_PartTwo"
+	    }
+	  ],
+	  "actions": [
+	    {
+	      "action": "set",
+	      "description": "Set the value for state.gridLayouts[0].style.backgroundColor in Exec_Overview_Sales_Performance.",
+	      "path": "$.state.gridLayouts[0].style.backgroundColor",
+	      "value": "${Variables.Exec_Overview_Sales_Performance_backgroundColor}"
+	    }
+	  ]
+	},
+	{
+	  "name": "Exec_Overview_Pipeline_Performance_backgroundColor",
+	  "appliesTo": [
+	    {
+	      "type": "dashboard",
+	      "name": "Exec_Overview_Pipeline_Performance_PartTwo"
+	    }
+	  ],
+	  "actions": [
+	    {
+	      "action": "set",
+	      "description": "Set the value for state.gridLayouts[0].style.backgroundColor in the Exec Overview - Pipeline Performance dashboard.",
+	      "path": "$.state.gridLayouts[0].style.backgroundColor",
+	      "value": "${Variables.Exec_Overview_Pipeline_Performance_backgroundColor}"
+	    }
+	  ]
+	 },
+	 {
+		"name": "Exec_Overview_Service_Performance_backgroundColor",
+		"appliesTo": [
+		  {
+			"type": "dashboard",
+			"name": "Exec_Overview_Service_Performance_PartTwo"
+		  }
+		],
+		"actions": [
+		  {
+			"action": "set",
+			"description": "Set the value for state.gridLayouts[0].style.backgroundColor in the Exec Overview - Service Performance dashboard.",
+			"path": "$.state.gridLayouts[0].style.backgroundColor",
+			"value": "${Variables.Exec_Overview_Service_Performance_backgroundColor}"
+		  }
+		]
+	 }
+  ]
+}

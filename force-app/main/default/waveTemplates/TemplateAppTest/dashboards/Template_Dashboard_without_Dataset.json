@@ -1,0 +1,86 @@
+{
+  "name" : "Template_Dashboard_without_Dataset_tp",
+  "label" : "Template Dashboard without Dataset",
+  "folder" : {
+    "id" : "${App.Folder.Id}"
+  },
+  "dateVersion" : 1,
+  "mobileDisabled" : false,
+  "xmd" : {
+    "measures" : [ ],
+    "derivedDimensions" : [ ],
+    "organizations" : [ ],
+    "showDetailsDefaultFields" : [ ],
+    "dates" : [ ],
+    "derivedMeasures" : [ ],
+    "dimensions" : [ ]
+  },
+  "state" : {
+    "dataSourceLinks" : [ ],
+    "filters" : [ ],
+    "gridLayouts" : [
+      {
+        "name" : "Default",
+        "numColumns" : 12,
+        "pages" : [
+          {
+            "label" : "Untitled",
+            "name" : "1a51ef63-2c14-4296-b881-56389323478d",
+            "navigationHidden" : false,
+            "widgets" : [
+              {
+                "colspan" : 12,
+                "column" : 0,
+                "name" : "text_1",
+                "row" : 0,
+                "rowspan" : 1,
+                "widgetStyle" : {
+                  "backgroundColor" : "#FF9897",
+                  "borderColor" : "#E6ECF2",
+                  "borderEdges" : [ ],
+                  "borderRadius" : 0,
+                  "borderWidth" : 1
+                }
+              }
+            ]
+          }
+        ],
+        "rowHeight" : "normal",
+        "selectors" : [ ],
+        "style" : {
+          "alignmentX" : "left",
+          "alignmentY" : "top",
+          "backgroundColor" : "#F2F6FA",
+          "cellSpacingX" : 8,
+          "cellSpacingY" : 8,
+          "fit" : "original",
+          "gutterColor" : "#C5D3E0"
+        },
+        "version" : 1.0
+      }
+    ],
+    "layouts" : [ ],
+    "steps" : { },
+    "widgetStyle" : {
+      "backgroundColor" : "#FFFFFF",
+      "borderColor" : "#E6ECF2",
+      "borderEdges" : [ ],
+      "borderRadius" : 0,
+      "borderWidth" : 1
+    },
+    "widgets" : {
+      "text_1" : {
+        "parameters" : {
+          "content" : {
+            "displayTemplate" : "Sales Performance v1.4"
+          },
+          "fontSize" : 16,
+          "showActionMenu" : true,
+          "textAlignment" : "left",
+          "textColor" : "#091A3E"
+        },
+        "type" : "text"
+      }
+    }
+  }
+}

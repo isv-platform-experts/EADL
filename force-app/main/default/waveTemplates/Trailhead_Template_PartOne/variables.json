@@ -1,0 +1,18 @@
+{
+  "Overrides": {
+    "required": true,
+    "description": "Internal configuration to allow asset creation overrides, not to be displayed in UI.",
+    "defaultValue": {
+      "createAllDashboards": false
+    },
+    "variableType": {
+      "type": "ObjectType",
+      "properties": {
+        "createAllDashboards": {
+          "type": "BooleanType"
+        }
+      },
+      "strictValidation": true
+    }
+  }
+}

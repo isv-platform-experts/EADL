@@ -1,0 +1,10 @@
+{
+    "featuredAssets": {
+	"default": {
+	  "assets": [
+		{"id": "${App.Dashboards['Exec Overview - Pipeline Performance'].Id}"},
+        {"id": "${App.Dashboards['Exec Overview - Sales Performance'].Id}"}
+	  ]
+	}
+    }
+}

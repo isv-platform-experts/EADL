@@ -1,0 +1,1726 @@
+{
+  "_type": "workflow",
+  "description": "Dataflow for the Sales Analytics Application.",
+  "name": "SalesAnalyticsDataflow",
+  "workflowDefinition": {
+    "Extract_PricebookEntry": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "fields": [
+          {
+            "name": "Id"
+          },
+          {
+            "name": "Product2Id"
+          }
+        ],
+        "object": "PricebookEntry"
+      }
+    },
+    "Extract_Opportunity": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "fields": [
+          {
+            "name": "Id"
+          },
+          {
+            "name": "AccountId"
+          },
+          {
+            "name": "OwnerId"
+          },
+          {
+            "name": "Name"
+          },
+          {
+            "name": "StageName"
+          },
+          {
+            "name": "LeadSource"
+          },
+          {
+            "name": "IsWon"
+          },
+          {
+            "name": "IsClosed"
+          },
+          {
+            "name": "ForecastCategory"
+          },
+          {
+            "name": "ForecastCategoryName"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "CreatedDate"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "CloseDate"
+          },
+          {
+            "name": "Amount"
+          },
+          {
+            "name": "CreatedById"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "LastModifiedDate"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "LastActivityDate"
+          },
+          {
+            "name": "HasOpportunityLineItem"
+          }
+        ],
+        "object": "Opportunity"
+      }
+    },
+    "Extract_Product": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "fields": [
+          {
+            "name": "Id"
+          },
+          {
+            "name": "ProductCode"
+          },
+          {
+            "name": "Name"
+          },
+          {
+            "name": "Family"
+          }
+        ],
+        "object": "Product2"
+      }
+    },
+    
+    "Extract_Case": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "fields": [
+          {
+            "name": "AccountId"
+          },
+          {
+            "name": "ContactId"
+          },
+          {
+            "name": "OwnerId"
+          },
+          {
+            "name": "Id"
+          },
+          {
+            "name": "IsClosed"
+          },
+          {
+            "name": "Origin"
+          },
+          {
+            "name": "Type"
+          },
+          {
+            "name": "Subject"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "LastModifiedDate"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "CreatedDate"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "ClosedDate"
+          },
+          {
+            "name": "IsEscalated"
+          },
+          {
+            "name": "Status"
+          },
+          {
+            "name": "CaseNumber"
+          }
+        ],
+        "object": "Case"
+      }
+    },
+    "Extract_OpportunityStage": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "fields": [
+          {
+            "name": "IsClosed"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "CreatedDate"
+          },
+          {
+            "name": "Description"
+          },
+          {
+            "name": "ForecastCategory"
+          },
+          {
+            "name": "ForecastCategoryName"
+          },
+          {
+            "name": "IsActive"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "LastModifiedDate"
+          },
+          {
+            "name": "MasterLabel"
+          },
+          {
+            "name": "Id"
+          },
+          {
+            "name": "DefaultProbability"
+          },
+          {
+            "name": "SortOrder"
+          },
+          {
+            "name": "SystemModstamp"
+          },
+          {
+            "name": "IsWon"
+          }
+        ],
+        "object": "OpportunityStage"
+      }
+    },
+    "Join_OpportunityStage_Previous_with_Opp": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Join_Time_In_Current_Stage_to_Pipeline_Trending",
+        "left_key": [
+          "OpportunityId"
+        ],
+        "right_select": [
+          "Name",
+          "IsWon",
+          "IsClosed",
+          "Stage.SortOrder",
+          "OwnerId",
+          "AccountId",
+          "CloseDate",
+          "StageName",
+          "LeadSource",
+          "ForecastCategoryName",
+          "Account.Name",
+          "Account.Industry",
+          "Account.BillingCountry",
+          "Account.OwnerId",
+          "Account.Owner.Name",
+          "Owner.Name",
+          "Owner.FullPhotoUrl",
+          "Owner.SmallPhotoUrl",
+          "Owner.UniqueUserName",
+          "Owner.Role.RoleNames",
+          "Owner.Role.Name",
+          "Owner.Role.DeveloperName",
+          "Owner.Role.Roles",
+          "Owner.Role.RolePath",
+          "Owner.Role.ParentRoleId",
+          "Owner.Role.ParentRole.Name",
+          "Owner.Role.ParentRole.DeveloperName"
+
+        ],
+        "right": "Join_OpportunityOwner",
+        "relationship": "Opportunity"
+      }
+    },
+    "Join_OpportunityStage_Previous_with_Opp_Amount": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Join_OpportunityStage_Previous_with_Opp",
+        "left_key": [
+          "OpportunityId"
+        ],
+        "right_select": [
+          "Amount"
+        ],
+        "right": "Extract_OpportunityAmount",
+        "relationship": "Opportunity"
+      }
+    },
+    "Register_PlainQuota": {
+      "action": "sfdcRegister",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+         "alias": "${App.EdgeMarts.plain_quota_PartTwo.Alias}",
+         "name": "Quota",
+        "source": "Extract_Quota"
+      }
+    },
+    "Join_Time_In_Current_Stage_to_Pipeline_Trending": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "OpportunityId"
+        ],
+        "left": "Join_ForecastCategory_Previous",
+        "left_key": [
+          "OpportunityId"
+        ],
+        "right_select": [
+          "Duration_Seconds"
+        ],
+        "right": "Calculate_Current_Stage_Duration",
+        "relationship": "Time_In_Current_Stage"
+      }
+    },
+    "Join_OpportunityStage": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "MasterLabel"
+        ],
+        "left": "Add_Fields_to_OpportunityHistory",
+        "left_key": [
+          "StageName"
+        ],
+        "right_select": [
+          "IsClosed",
+          "IsWon",
+          "SortOrder"
+        ],
+        "right": "Extract_OpportunityStage",
+        "relationship": "Stage"
+      }
+    },
+    "Calculate_Current_Stage_Duration": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Filter_Out_Last_Stage_Updates",
+        "computedFields": [
+          {
+            "precision": 18,
+            "name": "Duration_Seconds",
+            "saqlExpression": "date_diff(\"second\",toDate(ValidFromDate_sec_epoch), now())",
+            "scale": 0,
+            "label": "Duration",
+            "type": "Numeric"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "compute_CurrentDateForCase": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Extract_Case",
+        "computedFields": [
+          {
+            "format": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            "name": "CurrentDate",
+            "saqlExpression": "now()",
+            "label": "CurrentDate",
+            "type": "Date"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Augment_ParentName": {
+      "_comment": "get parent role's rolename",
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Flatten_UserRole",
+        "left_key": [
+          "ParentRoleId"
+        ],
+        "right_select": [
+          "Name",
+          "DeveloperName",
+          "ParentRoleId"
+        ],
+        "right": "Extract_UserRole",
+        "relationship": "ParentRole"
+      }
+    },
+    "Create_IsLastStageUpdate_Field": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Find_Last_Stage_Updates",
+        "computedFields": [
+          {
+            "name": "IsLastStageUpdate",
+            "saqlExpression": "case when 'LastStageUpdate_Id' == 'Id' then \"1\" else \"0\" end",
+            "label": "IsLastStageUpdate",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Join_OpportunityOpportunityStage": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "MasterLabel"
+        ],
+        "left": "Add_Neglected_To_Opportunity",
+        "left_key": [
+          "StageName"
+        ],
+        "right_select": [
+          "SortOrder",
+          "DefaultProbability"
+        ],
+        "right": "Extract_OpportunityStage",
+        "relationship": "Stage"
+      }
+    },
+    "Add_Fields_To_Account": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Extract_Account",
+        "computedFields": [
+          {
+            "name": "AccountName",
+            "saqlExpression": "'Name'",
+            "label": "Account Name",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Opportunities_No_Products": {
+      "action": "filter",
+      "parameters": {
+        "filter": "HasOpportunityLineItem:EQ:false",
+        "source": "Add_Neglected_To_Opportunity"
+      }
+    },
+    "Filter_Out_Stage_Updates": {
+      "action": "filter",
+      "parameters": {
+        "filter": "Stage_isUpdated:EQ:1",
+        "source": "Add_Fields_to_OpportunityHistory"
+      }
+    },
+    "Discount_Field": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Append_LineItems",
+        "computedFields": [
+          {
+            "precision": 7,
+            "name": "Discount_Percent",
+            "saqlExpression": "1-(('TotalPrice')/('ListPrice' * 'Quantity'))",
+            "scale": 6,
+            "type": "Numeric"
+          },
+          {
+            "precision": 7,
+            "name": "Total_ListPrice",
+            "saqlExpression": "'ListPrice' * 'Quantity'",
+            "scale": 6,
+            "type": "Numeric"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Filter_Opportunity": {
+      "action": "filter",
+      "parameters": {
+        "filter": "CustomFilter:EQ:true",
+        "source": "Opportunity_Custom_Filter_Flag"
+      }
+    },
+    "Join_ForecastCategory": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "ForecastCategory"
+        ],
+        "left": "Join_OpportunityStage_Previous",
+        "left_key": [
+          "ForecastCategory"
+        ],
+        "right_select": [
+          "ForecastCategoryName"
+        ],
+        "right": "Extract_OpportunityStage",
+        "relationship": "ForecastCategory"
+      }
+    },
+    "Compute_Manager_Unique": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Compute_Unique_Name",
+        "computedFields": [
+          {
+            "name": "UniqueUserName",
+            "saqlExpression": "case when isDuplicate is null then 'Name' else 'Name' + \" (\" +'Username'+ \")\" end",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Join_OpportunityLineItemPricebookEntry": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Discount_Field",
+        "left_key": [
+          "PricebookEntryId"
+        ],
+        "right_select": [
+          "Product2Id"
+        ],
+        "right": "Extract_PricebookEntry",
+        "relationship": "Pricebook"
+      }
+    },
+    "Join_AccountOwner": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Add_Fields_To_Account",
+        "left_key": [
+          "OwnerId"
+        ],
+        "right_select": [
+          "Name",
+          "Username",
+          "UserRoleId",
+          "UniqueUserName",
+          "FullPhotoUrl",
+          "SmallPhotoUrl",
+          "Role.Name",
+          "Role.DeveloperName",
+          "Role.Roles",
+          "Role.RolePath",
+          "Role.ParentRoleId",
+          "Role.ParentRole.Name",
+          "Role.ParentRole.DeveloperName",
+          "Role.RoleNames",
+          "Role.RoleNamesPath"
+        ],
+        "right": "User_with_Roles",
+        "relationship": "Owner"
+      }
+    },
+    "Join_ForecastCategory_Previous": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "ForecastCategory"
+        ],
+        "left": "Join_ForecastCategory",
+        "left_key": [
+          "ForecastCategory"
+        ],
+        "right_select": [
+          "ForecastCategoryName"
+        ],
+        "right": "Extract_OpportunityStage",
+        "relationship": "ForecastCategoryPrev"
+      }
+    },
+    "Add_Fields_to_OpportunityHistory": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Compute_Historical_Trending_Fields",
+        "computedFields": [
+          {
+            "defaultValue": "\"1\"",
+            "name": "Stage_isUpdated",
+            "saqlExpression": "case when 'StageName' == 'StageNamePrev' then \"0\" else \"1\" end",
+            "type": "Text"
+          },
+          {
+            "defaultValue": "\"1\"",
+            "name": "CloseDate_isUpdated",
+            "saqlExpression": "case when 'CloseDatePrev' == 'CloseDate' then \"0\" else \"1\" end",
+            "type": "Text"
+          },
+          {
+            "defaultValue": "\"1\"",
+            "name": "Amount_isUpdated",
+            "saqlExpression": "case when 'AmountPrev' == 'Amount' then \"0\" else \"1\" end",
+            "type": "Text"
+          },
+          {
+            "name": "IsLastUpdate",
+            "saqlExpression": "case when 'ValidToDate' == \"3000-01-01T00:00:00.000Z\" then \"1\" else \"0\" end",
+            "label": "IsLastUpdate",
+            "type": "Text"
+          },
+          {
+            "precision": 8,
+            "name": "IsPushed",
+            "saqlExpression": "case when ('CloseDatePrev' != \"1970-1-1\") && ('CloseDatePrev' < 'CloseDate') then 1 else 0 end",
+            "scale": 0,
+            "type": "Numeric"
+          },
+          {
+            "precision": 8,
+            "name": "IsPulled",
+            "saqlExpression": "case when ('CloseDatePrev' != \"1970-1-1\") && ('CloseDatePrev' > 'CloseDate') then 1 else 0 end",
+            "scale": 0,
+            "type": "Numeric"
+          },
+          {
+            "precision": 18,
+            "name": "Duration",
+            "saqlExpression": "case when 'ValidToDate' == \"3000-01-01T00:00:00.000Z\" then     date_diff(\"second\",toDate(ValidFromDate_sec_epoch), now())     else     date_diff(\"second\",toDate(ValidFromDate_sec_epoch), toDate(ValidToDate_sec_epoch))     end",
+            "scale": 0,
+            "label": "Duration",
+            "type": "Numeric"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Join_OpportunityOwner": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Join_OpportunityAccount",
+        "left_key": [
+          "OwnerId"
+        ],
+        "right_select": [
+          "Name",
+          "Username",
+          "UserRoleId",
+          "UniqueUserName",
+          "FullPhotoUrl",
+          "SmallPhotoUrl",
+          "Role.Name",
+          "Role.DeveloperName",
+          "Role.Roles",
+          "Role.RolePath",
+          "Role.ParentRoleId",
+          "Role.ParentRole.Name",
+          "Role.ParentRole.DeveloperName",
+          "Role.RoleNames",
+          "Role.RoleNamesPath"
+        ],
+        "right": "User_with_Roles",
+        "relationship": "Owner"
+      }
+    },
+    "Join_CaseAccount_Oppty": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "AccountId"
+        ],
+        "left": "Join_CaseAccount",
+        "left_key": [
+          "AccountId"
+        ],
+        "right_select": [
+          "Amount"
+        ],
+        "right": "Filter_WonOppty",
+        "relationship": "Opportunity",
+        "operation": "LookupMultiValue"
+      }
+    },
+    "Compute_Unique_Name": {
+      "action": "computeRelative",
+      "parameters": {
+        "partitionBy": [
+          "Name"
+        ],
+        "orderBy": [
+          {
+            "name": "Id",
+            "direction": "asc"
+          }
+        ],
+        "source": "Filter_User",
+        "computedFields": [
+          {
+            "expression": {
+              "sourceField": "Id",
+              "default": null,
+              "offset": "next()"
+            },
+            "name": "isDuplicate",
+            "description": "isDuplicate",
+            "label": "isDuplicate"
+          }
+        ]
+      }
+    },
+    "Users_Custom_Filter_Flag": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "User_with_Roles_with_Opportunities",
+        "computedFields": [
+          {
+            "name": "hasOpportunity",
+            "saqlExpression": "case when 'Opportunity.Name' is null then \"false\" else \"true\" end",
+            "type": "Text"
+          },
+          {
+            "name": "CustomFilter",
+            "saqlExpression": "case when 'Opportunity.Name' is null && 'IsActive' == \"false\" then \"false\" else \"true\" end",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Join_OpportunityAccount": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Create_StageName_Multi_Value_Key",
+        "left_key": [
+          "AccountId"
+        ],
+        "right_select": [
+          "Name",
+          "Industry",
+          "BillingCountry",
+          "NumberOfEmployees",
+          "AnnualRevenue",
+          "OwnerId",
+          "Owner.Name",
+          "Owner.UniqueUserName",
+          "Owner.Role.Name",
+          "Owner.Role.Roles",
+          "Owner.Role.RolePath",
+          "Owner.Role.ParentRoleId"
+        ],
+        "right": "Join_AccountOwner",
+        "relationship": "Account"
+      }
+    },
+    "Register_QuotaWithRoles": {
+      "action": "sfdcRegister",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "rowLevelSecurityFilter": "'User.Role.Roles' == \"$User.UserRoleId\" || 'User.Id' == \"$User.Id\"",
+        "name": "User Allocation",
+        "alias": "${App.EdgeMarts.quota_PartTwo.Alias}",
+        "source": "Join_Quota_User"
+      }
+    },
+    "Filter_User": {
+      "action": "filter",
+      "parameters": {
+        "filter": "UserType:EQ:Standard|PowerPartner",
+        "source": "Extract_User"
+      }
+    },
+
+    "Opportunity_Custom_Filter_Flag": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Join_OpportunityOwner_Product",
+        "computedFields": [
+          {
+            "name": "CustomFilter",
+            "saqlExpression": "\"true\"",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Compute_Opportunities_No_Products": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Opportunities_No_Products",
+        "computedFields": [
+          {
+            "name": "OpportunityId",
+            "saqlExpression": "Id",
+            "label": "OpportunityId",
+            "type": "Text"
+          },
+          {
+            "name": "ProductCode",
+            "saqlExpression": "\"N/A\"",
+            "label": "ProductCode",
+            "type": "Text"
+          },
+          {
+            "precision": 18,
+            "name": "ListPrice",
+            "saqlExpression": "Amount",
+            "scale": 2,
+            "label": "ListPrice",
+            "type": "Numeric"
+          },
+          {
+            "precision": 18,
+            "name": "Quantity",
+            "saqlExpression": "1",
+            "scale": 2,
+            "label": "Quantity",
+            "type": "Numeric"
+          },
+          {
+            "precision": 18,
+            "name": "TotalPrice",
+            "saqlExpression": "Amount",
+            "scale": 2,
+            "label": "Total Price",
+            "type": "Numeric"
+          },
+          {
+            "name": "PricebookEntryId",
+            "saqlExpression": "Id",
+            "label": "PricebookEntryId",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": false
+      }
+    },
+    "Compute_Historical_Trending_Fields": {
+      "action": "computeRelative",
+      "parameters": {
+        "partitionBy": [
+          "OpportunityId"
+        ],
+        "orderBy": [
+          {
+            "name": "Unique_Sort_Key",
+            "direction": "asc"
+          }
+        ],
+        "source": "Add_Unique_Sort_Key_to_OpportunityHistory",
+        "computedFields": [
+          {
+            "expression": {
+              "sourceField": "CreatedDate",
+              "default": "current()",
+              "offset": "first()"
+            },
+            "name": "OpportunityCreatedDate",
+            "description": "Opportunity Created Date",
+            "label": "OpportunityCreatedDate"
+          },
+          {
+            "expression": {
+              "sourceField": "CreatedDate",
+              "default": "3000-01-01T00:00:00.000Z",
+              "offset": "next()"
+            },
+            "name": "ValidToDate",
+            "description": "ValidToDate",
+            "label": "ValidToDate"
+          },
+          {
+            "expression": {
+              "sourceField": "CreatedDate",
+              "default": "current()",
+              "offset": "current()"
+            },
+            "name": "ValidFromDate",
+            "description": "ValidFromDate",
+            "label": "ValidFromDate"
+          },
+          {
+            "expression": {
+              "sourceField": "Amount",
+              "default": "0",
+              "offset": "previous()"
+            },
+            "name": "AmountPrev",
+            "description": "AmountPrev",
+            "label": "AmountPrev"
+          },
+          {
+            "expression": {
+              "sourceField": "StageName",
+              "default": null,
+              "offset": "previous()"
+            },
+            "name": "StageNamePrev",
+            "description": "Previous Stage Name",
+            "label": "Prev Stage Name"
+          },
+          {
+            "expression": {
+              "sourceField": "ForecastCategory",
+              "default": null,
+              "offset": "previous()"
+            },
+            "name": "ForecastCategoryPrev",
+            "description": "ForecastCategoryPrev",
+            "label": "ForecastCategoryPrev"
+          },
+          {
+            "expression": {
+              "sourceField": "CloseDate",
+              "default": "1970-01-01",
+              "offset": "previous()"
+            },
+            "name": "CloseDatePrev",
+            "description": "Previous Close Date",
+            "label": "Prev Close Date"
+          },
+          {
+            "expression": {
+              "sourceField": "CreatedDate",
+              "default": null,
+              "offset": "previous()"
+            },
+            "name": "CreatedDatePrev",
+            "description": "Previous Created Date",
+            "label": "Prev CreatedDate"
+          }
+        ]
+      }
+    },
+
+    "Flatten_ParentName": {
+      "schema": {
+        "objects": [
+          {
+            "label": "Flatten_UserRole",
+            "fields": [
+              {
+                "name": "RoleNames",
+                "label": "RoleNames",
+                "isSystemField": false
+              },
+              {
+                "name": "RoleNamesPath",
+                "label": "RoleNamesPath",
+                "isSystemField": false
+              }
+            ]
+          }
+        ]
+      },
+      "action": "flatten",
+      "parameters": {
+        "include_self_id": true,
+        "self_field": "DeveloperName",
+        "multi_field": "RoleNames",
+        "parent_field": "ParentRole.DeveloperName",
+        "path_field": "RoleNamesPath",
+        "source": "Augment_ParentName"
+      }
+    },
+    "Join_Quota_User": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Username"
+        ],
+        "left": "Extract_Quota",
+        "left_key": [
+          "Username"
+        ],
+        "right_select": [
+          "Id",
+          "Name",
+          "Username",
+          "UserRoleId",
+          "UniqueUserName",
+          "FullPhotoUrl",
+          "SmallPhotoUrl",
+          "Role.Name",
+          "Role.DeveloperName",
+          "Role.Roles",
+          "Role.RolePath",
+          "Role.ParentRoleId",
+          "Role.ParentRole.Name",
+          "Role.ParentRole.DeveloperName",
+          "Role.RoleNames",
+          "Role.RoleNamesPath"
+        ],
+        "right": "User_with_Roles",
+        "relationship": "User"
+      }
+    },
+    "Extract_Account": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "fields": [
+          {
+            "name": "Id"
+          },
+          {
+            "name": "Name"
+          },
+          {
+            "name": "OwnerId"
+          },
+          {
+            "name": "NumberOfEmployees"
+          },
+          {
+            "name": "AnnualRevenue"
+          },
+          {
+            "name": "Industry"
+          },
+          {
+            "name": "BillingCountry"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "CreatedDate"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "LastModifiedDate"
+          }
+        ],
+        "object": "Account"
+      }
+    },
+    "Extract_UserRole": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "fields": [
+          {
+            "name": "Id"
+          },
+          {
+            "name": "Name"
+          },
+          {
+            "name": "DeveloperName"
+          },
+          {
+            "name": "ParentRoleId"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "LastModifiedDate"
+          },
+          {
+            "name": "LastModifiedById"
+          },
+          {
+            "name": "SystemModstamp"
+          }
+        ],
+        "object": "UserRole"
+      }
+    },
+    "User_with_Roles": {
+      "_comment": "Get user's role hierarchy",
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Compute_Manager_Unique",
+        "left_key": [
+          "UserRoleId"
+        ],
+        "right_select": [
+          "Name",
+          "DeveloperName",
+          "Roles",
+          "RolePath",
+          "ParentRoleId",
+          "ParentRole.Name",
+          "ParentRole.DeveloperName",
+          "RoleNames",
+          "RoleNamesPath"
+        ],
+        "right": "Flatten_ParentName",
+        "relationship": "Role"
+      }
+    },
+    "Pipeline_Trending_Custom_Filter_Flag": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Join_OpportunityStage_Previous_with_Opp_Amount_Product",
+        "computedFields": [
+          {
+            "name": "CustomFilter",
+            "saqlExpression": "\"true\"",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Flatten_UserRole": {
+      "schema": {
+        "objects": [
+          {
+            "label": "Flatten_UserRole",
+            "fields": [
+              {
+                "name": "Roles",
+                "label": "Roles",
+                "isSystemField": false
+              },
+              {
+                "name": "RolePath",
+                "label": "RolePath",
+                "isSystemField": false
+              }
+            ]
+          }
+        ]
+      },
+      "action": "flatten",
+      "parameters": {
+        "self_field": "Id",
+        "multi_field": "Roles",
+        "parent_field": "ParentRoleId",
+        "path_field": "RolePath",
+        "source": "Extract_UserRole"
+      }
+    },
+    "Join_OpportunityStage_Previous": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "MasterLabel"
+        ],
+        "left": "Join_OpportunityStage",
+        "left_key": [
+          "StageNamePrev"
+        ],
+        "right_select": [
+          "IsClosed",
+          "IsWon",
+          "SortOrder"
+        ],
+        "right": "Extract_OpportunityStage",
+        "relationship": "StagePrev"
+      }
+    },
+    "Join_CaseAccount": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "compute_CalculatedCaseDuration",
+        "left_key": [
+          "AccountId"
+        ],
+        "right_select": [
+          "Name",
+          "Industry",
+          "BillingCountry",
+          "NumberOfEmployees",
+          "AnnualRevenue",
+          "OwnerId",
+          "Owner.Name",
+          "Owner.UniqueUserName",
+          "Owner.Role.Name",
+          "Owner.Role.Roles",
+          "Owner.Role.RolePath",
+          "Owner.Role.ParentRoleId"
+        ],
+        "right": "Join_AccountOwner",
+        "relationship": "Account"
+      }
+    },
+    "Extract_OpportunityAmount": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "fields": [
+          {
+            "name": "Id"
+          },
+          {
+            "name": "Amount"
+          }
+        ],
+        "object": "Opportunity"
+      }
+    },
+    "Extract_User": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "fields": [
+          {
+            "name": "Id"
+          },
+          {
+            "name": "Username"
+          },
+          {
+            "name": "Name"
+          },
+          {
+            "name": "FirstName"
+          },
+          {
+            "name": "LastName"
+          },
+          {
+            "name": "UserRoleId"
+          },
+          {
+            "name": "UserType"
+          },
+          {
+            "name": "IsActive"
+          },
+          {
+            "name": "FullPhotoUrl"
+          },
+          {
+            "name": "SmallPhotoUrl"
+          },
+          {
+            "defaultValue": "N/A",
+            "name": "ManagerId"
+          }
+        ],
+        "object": "User"
+      }
+    },
+    
+    "Join_OpportunityLineItemPricebookEntryProduct": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Join_OpportunityLineItemPricebookEntry",
+        "left_key": [
+          "Pricebook.Product2Id"
+        ],
+        "right_select": [
+          "ProductCode",
+          "Name",
+          "Family"
+        ],
+        "right": "Extract_Product",
+        "relationship": "Product"
+      }
+    },
+    "Extract_Queue": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "fields": [
+          {
+            "name": "Id"
+          },
+          {
+            "name": "Name"
+          },
+          {
+            "name": "Type"
+          }
+        ],
+        "complexFilterConditions": "Type = 'Queue'",
+        "object": "Group"
+      }
+    },
+    "Filter_UserManager": {
+      "action": "filter",
+      "parameters": {
+        "filter": "CustomFilter:EQ:true",
+        "source": "Users_Custom_Filter_Flag"
+      }
+    },
+    "Append_LineItems": {
+      "action": "append",
+      "parameters": {
+        "sources": [
+          "Extract_OpportunityLineItem",
+          "Compute_Opportunities_No_Products_Id"
+        ]
+      }
+    },
+    "Register_UserManager": {
+      "action": "sfdcRegister",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "name": "Users",
+        "alias": "${App.EdgeMarts.user_PartTwo.Alias}",
+        "source": "Filter_UserManager"
+      }
+    },
+    "Pipeline_Trending_Stage_Conversion_Flag": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Pipeline_Trending_Custom_Filter_Flag",
+        "computedFields": [
+          {
+            "defaultValue": "\"true\"",
+            "name": "Stage_IsAdvanced",
+            "saqlExpression": "case when 'Stage.SortOrder' > 'StagePrev.SortOrder' then \"true\" else \"false\" end",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Add_Fields_To_Oppty_Product": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Join_OpportunityOpportunityLineItemPricebookEntryProduct",
+        "computedFields": [
+          {
+            "name": "AccountName",
+            "saqlExpression": "'Opportunity.Account.Name'",
+            "label": "AccountName",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Extract_OpportunityHistory": {
+      "schema": {
+        "objects": [
+          {
+            "label": "OpportunityHistory",
+            "fields": [
+              {
+                "format": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                "name": "CreatedDate",
+                "description": "Opportunity Created Date",
+                "label": "CreatedDate"
+              },
+              {
+                "name": "Amount",
+                "description": "Amount",
+                "label": "Amount"
+              }
+            ]
+          }
+        ]
+      },
+      "action": "sfdcDigest",
+      "parameters": {
+        "fields": [
+          {
+            "name": "Amount"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "CloseDate"
+          },
+          {
+            "name": "CreatedById"
+          },
+          {
+            "fiscalMonthOffset": 0,
+            "firstDayOfWeek": 0,
+            "name": "CreatedDate"
+          },
+          {
+            "name": "ForecastCategory"
+          },
+          {
+            "name": "Id"
+          },
+          {
+            "name": "IsDeleted"
+          },
+          {
+            "name": "OpportunityId"
+          },
+          {
+            "name": "StageName"
+          }
+        ],
+        "object": "OpportunityHistory"
+      }
+    },
+    "Extract_OpportunityLineItem": {
+      "action": "sfdcDigest",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "fields": [
+          {
+            "name": "OpportunityId"
+          },
+          {
+            "name": "ProductCode"
+          },
+          {
+            "name": "ListPrice"
+          },
+          {
+            "name": "Quantity"
+          },
+          {
+            "name": "TotalPrice"
+          },
+          {
+            "name": "PricebookEntryId"
+          }
+        ],
+        "object": "OpportunityLineItem"
+      }
+    },
+    "Filter_Pipeline_Trending": {
+      "action": "filter",
+      "parameters": {
+        "filter": "CustomFilter:EQ:true",
+        "source": "Pipeline_Trending_Stage_Conversion_Flag"
+      }
+    },
+    "Register_Pipeline_Trending": {
+      "action": "sfdcRegister",
+      "parameters": {        
+        "name": "Pipeline Trending",
+        "alias": "${App.EdgeMarts.pipeline_trending_PartTwo.Alias}",
+        "source": "Filter_Pipeline_Trending"
+      }
+    },
+    "Filter_Out_Last_Stage_Updates": {
+      "action": "filter",
+      "parameters": {
+        "filter": "IsLastStageUpdate:EQ:1",
+        "source": "Create_IsLastStageUpdate_Field"
+      }
+    },
+    "Register_Opportunity": {
+      "action": "sfdcRegister",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "name": "Opportunities",
+        "alias": "${App.EdgeMarts.opportunity_PartTwo.Alias}",
+        "source": "Filter_Opportunity"
+      }
+    },
+    "Join_Time_In_Current_Stage_to_Opportunity": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "OpportunityId"
+        ],
+        "left": "Join_OpportunityOpportunityStage",
+        "left_key": [
+          "Id"
+        ],
+        "right_select": [
+          "Duration_Seconds"
+        ],
+        "right": "Calculate_Current_Stage_Duration",
+        "relationship": "Time_In_Current_Stage"
+      }
+    },
+    "Filter_WonOppty": {
+      "action": "filter",
+      "parameters": {
+        "filter": "IsWon:EQ:true",
+        "source": "Join_OpportunityAccount"
+      }
+    },
+    "Add_Neglected_To_Opportunity": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Add_Fields_To_Opportunity",
+        "computedFields": [
+          {
+            "name": "Neglected",
+            "saqlExpression": "case when DaysSinceLastActivity >= 60 then \"true\" else \"false\" end",
+            "label": "Neglected",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Find_Last_Stage_Updates": {
+      "action": "computeRelative",
+      "parameters": {
+        "partitionBy": [
+          "OpportunityId"
+        ],
+        "orderBy": [
+          {
+            "name": "Unique_Sort_Key",
+            "direction": "desc"
+          }
+        ],
+        "source": "Filter_Out_Stage_Updates",
+        "computedFields": [
+          {
+            "expression": {
+              "sourceField": "Id",
+              "default": "current()",
+              "offset": "first()"
+            },
+            "name": "LastStageUpdate_Id",
+            "description": "Final Stage Change Id",
+            "label": "LastStageUpdate_Id"
+          }
+        ]
+      }
+    },
+    "compute_CalculatedCaseDuration": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "compute_CurrentDateForCase",
+        "computedFields": [
+          {
+            "defaultValue": "0",
+            "precision": 18,
+            "name": "DurationCalculatedField",
+            "saqlExpression": "case  when ('IsClosed' == \"true\") then ('ClosedDate_sec_epoch' - 'CreatedDate_sec_epoch')/86400   else ('CurrentDate_sec_epoch' - 'CreatedDate_sec_epoch')/86400  end",
+            "scale": 2,
+            "label": "Case Duration",
+            "type": "Numeric"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Join_OpportunityStage_Previous_with_Opp_Amount_Product": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "OpportunityId"
+        ],
+        "left": "Join_OpportunityStage_Previous_with_Opp_Amount",
+        "left_key": [
+          "OpportunityId"
+        ],
+        "right_select": [
+          "Product.Family",
+          "Product.Name"
+        ],
+        "right": "Add_Fields_To_Oppty_Product",
+        "relationship": "Opportunity",
+        "operation": "LookupMultiValue"
+      }
+    },
+    "Create_StageName_Multi_Value_Key": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "OpportunityId"
+        ],
+        "left": "Join_Time_In_Current_Stage_to_Opportunity",
+        "left_key": [
+          "Id"
+        ],
+        "right_select": [
+          "StageName",
+          "IsPushed",
+          "IsPulled"
+        ],
+        "right": "Join_OpportunityStage_Previous",
+        "relationship": "Stage",
+        "operation": "LookupMultiValue"
+      }
+    },
+    "Add_Unique_Sort_Key_to_OpportunityHistory": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Extract_OpportunityHistory",
+        "computedFields": [
+          {
+            "defaultValue": "'CreatedDate'",
+            "name": "Unique_Sort_Key",
+            "saqlExpression": "'CreatedDate' + \"-\" +  'Id'",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Compute_Opportunities_No_Products_Id": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Compute_Opportunities_No_Products",
+        "computedFields": [
+          {
+            "name": "Id",
+            "saqlExpression": "\"N/A\"",
+            "label": "Id",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Join_OpportunityOpportunityLineItemPricebookEntryProduct": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "Id"
+        ],
+        "left": "Join_OpportunityLineItemPricebookEntryProduct",
+        "left_key": [
+          "OpportunityId"
+        ],
+        "right_select": [
+          "Name",
+          "StageName",
+          "CloseDate",
+          "IsWon",
+          "IsClosed",
+          "LeadSource",
+          "ForecastCategory",
+          "ForecastCategoryName",
+          "CreatedDate",
+          "AccountId",
+          "Account.Name",
+          "Account.OwnerId",
+          "Account.Industry",
+          "Account.BillingCountry",
+          "Account.NumberOfEmployees",
+          "Account.AnnualRevenue",
+          "Account.Owner.Name",
+          "Account.Owner.UniqueUserName",
+          "Account.Owner.Role.Name",
+          "Account.Owner.Role.Roles",
+          "Account.Owner.Role.RolePath",
+          "OwnerId",
+          "Owner.Name",
+          "Owner.FullPhotoUrl",
+          "Owner.SmallPhotoUrl",
+          "Owner.UniqueUserName",
+          "Owner.Role.Name",
+          "Owner.Role.DeveloperName",
+          "Owner.Role.Roles",
+          "Owner.Role.RoleNames",
+          "Owner.Role.RolePath",
+          "Owner.Role.ParentRoleId",
+          "Owner.Role.ParentRole.DeveloperName",
+          "OpportunityAge",
+          "DaysSinceLastActivity",
+          "Neglected"
+        ],
+        "right": "Join_OpportunityOwner",
+        "relationship": "Opportunity"
+      }
+    },
+    "Extract_Quota": {
+      "action": "edgemart",
+      "parameters": {
+        "alias": "plain_quota_PartTwo"
+      }
+    },
+    "Join_OpportunityOwner_Product": {
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "OpportunityId"
+        ],
+        "left": "Join_OpportunityOwner",
+        "left_key": [
+          "Id"
+        ],
+        "right_select": [
+          "Product.Family",
+          "Product.Name"
+        ],
+        "right": "Add_Fields_To_Oppty_Product",
+        "relationship": "Product",
+        "operation": "LookupMultiValue"
+      }
+    },
+    "Add_Fields_To_Opportunity": {
+      "action": "computeExpression",
+      "parameters": {
+        "source": "Extract_Opportunity",
+        "computedFields": [
+          {
+            "precision": 8,
+            "name": "DaysSinceLastActivity",
+            "saqlExpression": "case    when LastActivityDate is null      then daysBetween(toDate(LastModifiedDate_sec_epoch), now())   when LastModifiedDate > LastActivityDate     then daysBetween(toDate(LastModifiedDate_sec_epoch), now())   else daysBetween(toDate(LastActivityDate_sec_epoch), now()) end",
+            "scale": 0,
+            "label": "Days Since Last Activity",
+            "type": "Numeric"
+          },
+          {
+            "precision": 8,
+            "name": "OpportunityAge",
+            "saqlExpression": "case    when IsClosed == \"false\"     then daysBetween(toDate(CreatedDate_sec_epoch), now())     else daysBetween(toDate(CreatedDate_sec_epoch),toDate(CloseDate_sec_epoch))     end",
+            "scale": 0,
+            "label": "Opportunity Age",
+            "type": "Numeric"
+          }
+        ],
+        "mergeWithSource": true
+      }
+    },
+    "Register_Case": {
+      "action": "sfdcRegister",
+      "parameters": {
+        "SFDCtoken": "SFDCtoken",
+        "rowLevelSecurityFilter": "",
+        "name": "Cases",
+        "alias": "${App.EdgeMarts.case_PartTwo.Alias}",
+        "source": "Join_CaseAccount_Oppty"
+      }
+    },
+    "User_with_Roles_with_Opportunities": {
+      "_comment": "Get user's role hierarchy",
+      "action": "augment",
+      "parameters": {
+        "right_key": [
+          "OwnerId"
+        ],
+        "left": "User_with_Roles",
+        "left_key": [
+          "Id"
+        ],
+        "right_select": [
+          "Name"
+        ],
+        "right": "Extract_Opportunity",
+        "relationship": "Opportunity"
+      }
+    }
+  }
+}
