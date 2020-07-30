@@ -15,7 +15,7 @@ sfdx force:package:install  -s AllUsers -p 04t5w000005ubuw
 sfdx force:apex:execute -f config/setup.apex
 
 # push the contents of this repo into the scratch org
-sfdx force:source:push
+#sfdx force:source:push
 
 
 #open the org
