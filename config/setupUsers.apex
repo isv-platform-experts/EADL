@@ -26,3 +26,7 @@ insert u;
 PermissionSet ps = [select Id from PermissionSet where Label='Analytics View Only User'];
 PermissionSetAssignment psa = new PermissionSetAssignment (PermissionSetId = ps.Id, AssigneeId = u.Id);
 insert psa;
+
+Account a = new Account();
+a.name="testAccount";
+insert a;
