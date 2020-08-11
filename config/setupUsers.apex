@@ -28,5 +28,5 @@ PermissionSetAssignment psa = new PermissionSetAssignment (PermissionSetId = ps.
 insert psa;
 
 Account a = new Account();
-a.name="testAccount";
+a.name='testAccount';
 insert a;
