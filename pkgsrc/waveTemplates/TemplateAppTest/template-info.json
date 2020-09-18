@@ -4,7 +4,8 @@
   "name" : "TemplateAppTest",
   "namespace" : "eadxtest",
   "description" : "",
-  "assetVersion" : 49.0,
+  "autoInstallDefinition" : "auto-install.json",
+  "assetVersion" : 50.0,
   "variableDefinition" : "variables.json",
   "uiDefinition" : "ui.json",
   "rules" : [
